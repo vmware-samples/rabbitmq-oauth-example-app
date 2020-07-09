@@ -1,0 +1,11 @@
+!**/gradle/wrapper/gradle-wrapper.jar
+**/*.iml
+**/.idea
+**/build
+**/target
+**/.gradle
+**/classes
+**/out
+**/.DS_Store
+**/.envrc
+**/*.bak
