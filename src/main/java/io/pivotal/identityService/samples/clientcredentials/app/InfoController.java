@@ -5,9 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.impl.CredentialsProvider;
 import io.pivotal.cfenv.core.CfEnv;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.Connection;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionNameStrategy;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -67,15 +72,32 @@ public class InfoController {
 //                            .parameter("password", "rabbit_super")
 //                            .build();
 
-            CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-            connectionFactory.setPort(Integer.parseInt(cfEnv.findCredentialsByTag("rabbitmq").getPort()));
-            connectionFactory.setHost(cfEnv.findCredentialsByTag("rabbitmq").getHost());
-            Object vhost = cfEnv.findCredentialsByTag("rabbitmq").getMap().get("vhost");
-            connectionFactory.setVirtualHost((String)vhost);
-            connectionFactory.setPassword(accessToken.getTokenValue());
-            connectionFactory.setUsername("");
-            System.out.println("**** TOKEN: " + accessToken.getTokenValue());
-            Connection connection = connectionFactory.createConnection();
+            try {
+                CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+                connectionFactory.setPort(Integer.parseInt(cfEnv.findCredentialsByTag("rabbitmq").getPort()));
+                connectionFactory.setHost(cfEnv.findCredentialsByTag("rabbitmq").getHost());
+                Object vhost = cfEnv.findCredentialsByTag("rabbitmq").getMap().get("vhost");
+                connectionFactory.setVirtualHost((String)vhost);
+                connectionFactory.setPassword(accessToken.getTokenValue());
+                connectionFactory.setUsername("");
+                connectionFactory.setConnectionNameStrategy(factory -> "client-credentials-spike");
+                System.out.println("**** TOKEN: " + accessToken.getTokenValue());
+                RabbitAdmin admin = new RabbitAdmin(connectionFactory);
+                DirectExchange ex = new DirectExchange("ex");
+                admin.declareExchange(ex);
+                Queue queue = new Queue("q");
+                admin.declareQueue(queue);
+                admin.declareBinding(BindingBuilder.bind(queue).to(ex).with("foo"));
+                RabbitTemplate template = admin.getRabbitTemplate();
+//                template.setExchange(ex.getName());
+//                template.setDefaultReceiveQueue();
+                template.convertAndSend(ex.getName(), "foo", "Yay a message!");
+                Message receivedMessage = template.receive(1000);
+                model.addAttribute("connection_status", "Connected and sent message:)");
+                model.addAttribute("message", "Received Message: " + new String(receivedMessage.getBody()));
+            } catch(Exception e) {
+                model.addAttribute("connection_status", "Failed: " + e.getMessage());
+            }
         }
 
         return "info";
