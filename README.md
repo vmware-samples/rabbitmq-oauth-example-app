@@ -30,4 +30,4 @@ SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_AUTHORIZATIONGRANTTYPE
 $ cf push
 ```
 
-* Grant authorities in the SSO dashboard using cody's username and password
+* Check granted authorities in the SSO dashboard using cody's username and password
