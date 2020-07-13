@@ -12,9 +12,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-    @Value("${RESOURCE_URL}")
-    private String resourceServerUrl;
-
     @Bean
     public CfEnv cfEnv() {
         return new CfEnv();
@@ -29,7 +26,7 @@ public class WebClientConfig {
                         authorizedClientRepository);
         oauth2.setDefaultClientRegistrationId("sso");
         return WebClient.builder()
-                .baseUrl(resourceServerUrl)
+                .baseUrl("http://localhost")
                 .apply(oauth2.oauth2Configuration())
                 .build();
     }

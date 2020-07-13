@@ -6,12 +6,12 @@
     "uaa.resource",
     "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.read:*/*",
     "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.write:*/*",
-    "openid",
-    "phone"
+    "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.configure:*/*",
+    "openid"
   ],
   "resources": {
     "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.read:*/*": "read rabbitmq queues",
     "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.write:*/*": "write rabbitmq queues",
-    "phone": "phone"
+    "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.configure:*/*": "configure rabbitmq queues"
   }
 }
