@@ -7,44 +7,5 @@ applications:
    services:
    - rabbit
    env:
-     # *** BEGIN: env vars the application ***
-
-     # The grant type used in the /authorize call by Spring Security 5
-     # This variable is not needed when using both:
-     #   - App SSO 1.10 or newer
-     #   - java-cfenv 1.1.1 or newer
-     #SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_AUTHORIZATIONGRANTTYPE: client_credentials
-
-     # The scopes requested when obtaining a token by Spring Security 5
-     #SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE: uaa.resource,p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.read:*/*,p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.write:*/*,p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.configure:*/*
-
-     # This can be used in conjunction with the cloudfoundry-certificate-truster library to skip all cert checks for
-     # development environments which use self-signed certs.
-     # DO NOT USE THIS IN PRODUCTION!!!
-     # TRUST_CERTS: login.sfo.identity.team
-
-     # *** END: env vars the application ***
-
-     # *** BEGIN: env vars for the service broker to use during bind ***
-     # The following are bootstrap configurations you may use to automatically create client configurations in
-     # the SSO service for your application if the configurations do not exist. These configurations take effect
-     # when binding or rebinding to the SSO, and will overwrite existing client configurations if any.
-     # The values provided below are examples.
-
-     # Identity provider(s) to be set for the application's client configurations. This value represents the allowed identity providers for the app through the SSO service plan.
-
-     # Client authorities for the application, only used for client credentials grant type
      SPRING_PROFILES_ACTIVE: cloud
      JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
-
-     # Lifetime in seconds of the application's access token
-
-
-     # Resource(s) that the application will use as scopes/authorities to be created if they do not already exist during bootstrapping
-#
-     # Application icon with the application name and launch URL that will be displayed on the Pivotal Account dashboard if configured to show
-     # SSO_ICON: <base64 encoded image - do not exceed 64kb>
-     # SSO_LAUNCH_URL: <url>
-     # SSO_SHOW_ON_HOME_PAGE: <true/false>
-
-     # *** END: env vars for the service broker to use during bind ***

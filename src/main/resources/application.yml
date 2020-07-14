@@ -4,3 +4,12 @@ server:
 
 logging.level:
   org.springframework.security: DEBUG
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          sso:
+            authorization-grant-type: client_credentials
+            scope: uaa.resource,p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.read:*/*,p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.write:*/*,p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.configure:*/*
