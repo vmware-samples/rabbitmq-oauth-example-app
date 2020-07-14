@@ -15,6 +15,8 @@ This app uses OAuth to bind to RabbitMQ SI
 $ ./gradlew build && cf push --no-start
 ```
 
+Note: If you try to start the application at this point it will likely fail because spring is not able to initialize SSO beans.
+ 
 * Bind application to the identity service using `binding.json`
 
 ```
