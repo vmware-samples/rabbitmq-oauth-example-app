@@ -1,7 +1,6 @@
 package io.pivotal.identityService.samples.clientcredentials.configuration;
 
 import io.pivotal.cfenv.core.CfEnv;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
