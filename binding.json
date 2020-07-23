@@ -4,19 +4,14 @@
   ],
   "authorities": [
     "uaa.resource",
-    "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.read:*/*",
-    "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.write:*/*",
-    "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.configure:*/*",
+    "p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.read:*/*",
+    "p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.write:*/*",
+    "p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.configure:*/*",
     "openid",
     "phone",
     "email",
     "profile",
     "roles",
     "user_attributes"
-  ],
-  "resources": {
-    "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.read:*/*": "read rabbitmq queues",
-    "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.write:*/*": "write rabbitmq queues",
-    "p-rabbitmq_b6b7b74d-259b-4b72-9aa1-6d1383117810.configure:*/*": "configure rabbitmq queues"
-  }
+  ]
 }
