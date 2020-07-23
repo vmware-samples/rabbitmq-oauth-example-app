@@ -11,6 +11,8 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -27,6 +29,10 @@ import java.util.Map;
 public class InfoController {
     public static final String EXCHANGE_NAME = "ex";
     public static final String QUEUE_NAME = "q";
+    @Autowired
+    @Qualifier("oauthConnectionFactory")
+    CachingConnectionFactory cachingConnectionFactory;
+
     @Value("${ssoServiceUrl:placeholder}")
     String ssoServiceUrl;
 
@@ -57,8 +63,7 @@ public class InfoController {
             model.addAttribute("rmq", cfEnv.findCredentialsByTag("rabbitmq").getHost());
 
             try {
-                CachingConnectionFactory connectionFactory = getCachingConnectionFactory(accessToken);
-                RabbitAdmin admin = new RabbitAdmin(connectionFactory);
+                RabbitAdmin admin = new RabbitAdmin(cachingConnectionFactory);
 
                 bootstrapRabbit(admin);
                 RabbitTemplate template = admin.getRabbitTemplate();
@@ -70,6 +75,7 @@ public class InfoController {
                 Message receivedMessage = template.receive(1000);
                 model.addAttribute("message", "Received Message: " + new String(receivedMessage.getBody()));
             } catch(Exception e) {
+                e.printStackTrace();
                 model.addAttribute("connection_status", "Failed: " + e.getMessage());
             }
         }
