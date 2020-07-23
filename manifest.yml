@@ -1,11 +1,11 @@
 ---
 applications:
- - name: client-credentials-sample
-   memory: 1G
-   instances: 1
-   path: build/libs/client-credentials.jar
-   services:
-   - rabbit
-   env:
-     SPRING_PROFILES_ACTIVE: cloud
-     JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+  - name: sso-example
+    memory: 1G
+    instances: 1
+    path: build/libs/client-credentials.jar
+    services:
+      - rabbit
+    env:
+      SPRING_PROFILES_ACTIVE: cloud
+      JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
