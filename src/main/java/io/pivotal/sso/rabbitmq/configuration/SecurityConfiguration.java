@@ -1,4 +1,4 @@
-package io.pivotal.identityService.samples.clientcredentials.configuration;
+package io.pivotal.sso.rabbitmq.configuration;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

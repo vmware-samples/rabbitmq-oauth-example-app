@@ -1,4 +1,4 @@
-package io.pivotal.identityService.samples.clientcredentials.configuration;
+package io.pivotal.sso.rabbitmq.configuration;
 
 
 import com.rabbitmq.client.impl.CredentialsProvider;

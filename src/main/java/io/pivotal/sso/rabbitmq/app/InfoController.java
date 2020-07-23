@@ -1,30 +1,14 @@
-package io.pivotal.identityService.samples.clientcredentials.app;
+package io.pivotal.sso.rabbitmq.app;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.pivotal.cfenv.core.CfEnv;
-import io.pivotal.identityService.samples.clientcredentials.rabbitmq.RabbitMQClient;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
+import io.pivotal.sso.rabbitmq.rabbitmq.RabbitMQClient;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.io.IOException;
 import java.util.Date;
-import java.util.Map;
 
 @Controller
 public class InfoController {

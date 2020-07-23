@@ -1,4 +1,4 @@
-package io.pivotal.identityService.samples.clientcredentials.rabbitmq;
+package io.pivotal.sso.rabbitmq.rabbitmq;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
