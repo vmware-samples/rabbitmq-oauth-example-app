@@ -97,7 +97,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public DirectExchange exchange() {
-        return new DirectExchange(exchangeName);
+        return new DirectExchange(exchangeName, false, true);
     }
 
     @Bean

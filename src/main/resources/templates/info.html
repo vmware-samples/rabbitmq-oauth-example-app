@@ -6,16 +6,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-  <h1>Client Credentials sample</h1>
+  <h2>SSO RabbitMQ Example</h2>
 
-  <p>This is the Access Token that was used:</p>
-  <pre th:text="${access_token}" class="access_token"></pre>
-  <pre th:text="${rmq}" class="access_token"></pre>
+  <p>Connected to host:</p>
+  <pre th:text="${rmq}"></pre>
 
 
-  <h2>RabbitMQ SI connection status</h2>
-  <pre th:text="${connection_status}" class="access_token"></pre>
-  <pre th:text="${message}" class="access_token"></pre>
+  <h3>Connection Status</h3>
+  <pre th:text="${connection_status}"></pre>
+
+  <h3>Message sent</h3>
+  <pre th:text="${message_sent}"></pre>
+
+  <h3>Message received</h3>
+  <pre th:text="${message_received}"></pre>
+
+  <h3>Message match?</h3>
+  <pre th:text="${messages_match}"></pre>
 
 </body>
 </html>

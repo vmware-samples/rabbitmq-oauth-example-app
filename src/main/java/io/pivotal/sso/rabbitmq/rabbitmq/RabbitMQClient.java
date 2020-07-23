@@ -34,9 +34,9 @@ public class RabbitMQClient {
         }
     }
 
-    public Message receive() {
+    public String receive() {
         Message message = template.receive(1000);
-        return message;
+        return new String(message.getBody());
     }
 
     public static class PublishException extends Exception {

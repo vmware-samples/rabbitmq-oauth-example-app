@@ -14,6 +14,7 @@ spring:
             authorization-grant-type: client_credentials
             scope: uaa.resource,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.read:*/*,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.write:*/*,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.configure:*/*
 
+# This disables automatic creation of spring.rabbitmq.* properties by the AmqpCfEnvProcessor for instance `rabbit` which are not needed to configure OAuth connection
 cfenv:
   service:
     rabbit:
@@ -22,7 +23,7 @@ cfenv:
 example:
   rabbitmq:
     exchange:
-      name: some-exchange-foo
+      name: sample-exchange
     queue:
-      name: some-queue-foo
-    routingKey: some-routing-key-foo
+      name: sample-queue
+    routingKey: sample-routing-key
