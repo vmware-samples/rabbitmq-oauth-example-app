@@ -11,7 +11,6 @@
   <p>Connected to host:</p>
   <pre th:text="${rmq}"></pre>
 
-
   <h3>Connection Status</h3>
   <pre th:text="${connection_status}"></pre>
 
@@ -23,6 +22,12 @@
 
   <h3>Message match?</h3>
   <pre th:text="${messages_match}"></pre>
+
+  <h3>Token</h3>
+  <pre th:text="${token}"></pre>
+
+  <h3>Token valid for (second)</h3>
+  <pre th:text="${timeBeforeExpiration}"></pre>
 
 </body>
 </html>

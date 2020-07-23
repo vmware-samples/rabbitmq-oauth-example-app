@@ -2,6 +2,8 @@ package io.pivotal.sso.rabbitmq.controller;
 
 import io.pivotal.cfenv.core.CfEnv;
 import io.pivotal.sso.rabbitmq.rabbitmq.RabbitMQClient;
+import io.pivotal.sso.rabbitmq.util.OAuthToken;
+import io.pivotal.sso.rabbitmq.util.OAuthToken.Token;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +14,12 @@ import java.util.UUID;
 public class InfoController {
     private RabbitMQClient rabbitMQClient;
     private CfEnv cfEnv;
+    private OAuthToken oAuthToken;
 
-    public InfoController(CfEnv cfEnv, RabbitMQClient rabbitMQClient) {
+    public InfoController(CfEnv cfEnv, RabbitMQClient rabbitMQClient, OAuthToken oAuthTokenParser) {
         this.cfEnv = cfEnv;
         this.rabbitMQClient = rabbitMQClient;
+        this.oAuthToken = oAuthTokenParser;
     }
 
     @GetMapping("/")
@@ -29,6 +33,10 @@ public class InfoController {
             model.addAttribute("message_received", receivedMessage);
             model.addAttribute("messages_match", message.equals(receivedMessage));
             model.addAttribute("connection_status", "Connected and sent message:)");
+
+            Token token = oAuthToken.getLatestToken();
+            model.addAttribute("token", token.value);
+            model.addAttribute("timeBeforeExpiration", token.secondsRemaining);
         } catch(Exception e) {
             e.printStackTrace();
             model.addAttribute("connection_status", "Failed: " + e.getMessage());

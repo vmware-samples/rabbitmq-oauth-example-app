@@ -82,7 +82,7 @@ public class RabbitMQConfiguration {
             .grantType(grantType)
             .build();
 
-            return credentialsProvider;
+        return credentialsProvider;
     }
 
     @Bean
