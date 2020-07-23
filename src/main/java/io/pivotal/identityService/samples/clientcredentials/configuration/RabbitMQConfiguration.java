@@ -7,18 +7,20 @@ import com.rabbitmq.client.impl.DefaultCredentialsRefreshService;
 import com.rabbitmq.client.impl.OAuth2ClientCredentialsGrantCredentialsProvider.OAuth2ClientCredentialsGrantCredentialsProviderBuilder;
 import io.pivotal.cfenv.core.CfCredentials;
 import io.pivotal.cfenv.core.CfEnv;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
+    public static final String RABBITMQ_CF_ENV_TAG = "rabbitmq";
     @Value("${spring.security.oauth2.client.registration.sso.authorization-grant-type}")
     private String grantType;
     @Value("${spring.security.oauth2.client.registration.sso.client-id}")
@@ -27,6 +29,7 @@ public class RabbitMQConfiguration {
     private String clientSecret;
     @Value("${spring.security.oauth2.client.provider.sso.issuer-uri}")
     private String tokenEndpointUri;
+
     @Value("${example.rabbitmq.queue.name}")
     private String queueName;
     @Value("${example.rabbitmq.exchange.name}")
@@ -43,7 +46,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public com.rabbitmq.client.ConnectionFactory rabbitConnectionFactory(CredentialsProvider credentialsProvider, CredentialsRefreshService credentialsRefreshService, CfEnv cfEnv){
-        CfCredentials rabbitmqCredentials = cfEnv.findCredentialsByTag("rabbitmq");
+        CfCredentials rabbitmqCredentials = cfEnv.findCredentialsByTag(RABBITMQ_CF_ENV_TAG);
         Object vhost = rabbitmqCredentials.getMap().get("vhost");
         String host = rabbitmqCredentials.getHost();
         int port = Integer.parseInt(rabbitmqCredentials.getPort());
@@ -80,6 +83,11 @@ public class RabbitMQConfiguration {
             .build();
 
             return credentialsProvider;
+    }
+
+    @Bean
+    public CfEnv cfEnv() {
+        return new CfEnv();
     }
 
     @Bean
