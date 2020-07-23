@@ -13,3 +13,16 @@ spring:
           sso:
             authorization-grant-type: client_credentials
             scope: uaa.resource,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.read:*/*,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.write:*/*,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.configure:*/*
+
+cfenv:
+  service:
+    rabbit:
+      enabled: false
+
+example:
+  rabbitmq:
+    exchange:
+      name: some-exchange-foo
+    queue:
+      name: some-queue-foo
+    routingKey: some-routing-key-foo

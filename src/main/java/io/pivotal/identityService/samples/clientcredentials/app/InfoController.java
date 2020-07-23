@@ -3,6 +3,7 @@ package io.pivotal.identityService.samples.clientcredentials.app;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.pivotal.cfenv.core.CfEnv;
+import io.pivotal.identityService.samples.clientcredentials.rabbitmq.RabbitMQClient;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -29,9 +30,8 @@ import java.util.Map;
 public class InfoController {
     public static final String EXCHANGE_NAME = "ex";
     public static final String QUEUE_NAME = "q";
-    @Autowired
-    @Qualifier("oauthConnectionFactory")
-    CachingConnectionFactory cachingConnectionFactory;
+
+    RabbitMQClient rabbitMQClient;
 
     @Value("${ssoServiceUrl:placeholder}")
     String ssoServiceUrl;
@@ -39,9 +39,10 @@ public class InfoController {
     private ObjectMapper objectMapper;
     private CfEnv cfEnv;
 
-    public InfoController(ObjectMapper objectMapper, CfEnv cfEnv) {
+    public InfoController(ObjectMapper objectMapper, CfEnv cfEnv, RabbitMQClient rabbitMQClient) {
         this.objectMapper = objectMapper;
         this.cfEnv = cfEnv;
+        this.rabbitMQClient = rabbitMQClient;
     }
 
     @GetMapping("/")
@@ -63,16 +64,12 @@ public class InfoController {
             model.addAttribute("rmq", cfEnv.findCredentialsByTag("rabbitmq").getHost());
 
             try {
-                RabbitAdmin admin = new RabbitAdmin(cachingConnectionFactory);
 
-                bootstrapRabbit(admin);
-                RabbitTemplate template = admin.getRabbitTemplate();
-                template.setDefaultReceiveQueue(QUEUE_NAME);
 
-                template.convertAndSend(EXCHANGE_NAME, "foo", "Yay a message! " + new Date().getTime());
+                rabbitMQClient.send("Yay a message! " + new Date().getTime());
                 model.addAttribute("connection_status", "Connected and sent message:)");
 
-                Message receivedMessage = template.receive(1000);
+                Message receivedMessage = rabbitMQClient.receive();
                 model.addAttribute("message", "Received Message: " + new String(receivedMessage.getBody()));
             } catch(Exception e) {
                 e.printStackTrace();
@@ -81,37 +78,6 @@ public class InfoController {
         }
 
         return "info";
-    }
-
-    private void bootstrapRabbit(RabbitAdmin admin) {
-        DirectExchange ex = new DirectExchange(EXCHANGE_NAME);
-        admin.declareExchange(ex);
-        Queue queue = new Queue(QUEUE_NAME);
-        admin.declareQueue(queue);
-        admin.declareBinding(BindingBuilder.bind(queue).to(ex).with("foo"));
-    }
-
-    private CachingConnectionFactory getCachingConnectionFactory(OAuth2AccessToken accessToken) {
-//            THIS IS NOT YET POSSIBLE DUE TO OUTDATED CLIENT
-//            ClientRegistration clientRegistration = authorizedClient.getClientRegistration();
-//            CredentialsProvider credentialsProvider =
-//                    new OAuth2ClientCredentialsGrantCredentialsProviderBuilder()
-//                            .tokenEndpointUri("http://localhost:8080/uaa/oauth/token/")
-//                            .clientId("rabbit_client").clientSecret("rabbit_secret")
-//                            .grantType("password")
-//                            .parameter("username", "rabbit_super")
-//                            .parameter("password", "rabbit_super")
-//                            .build();
-
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setPort(Integer.parseInt(cfEnv.findCredentialsByTag("rabbitmq").getPort()));
-        connectionFactory.setHost(cfEnv.findCredentialsByTag("rabbitmq").getHost());
-        Object vhost = cfEnv.findCredentialsByTag("rabbitmq").getMap().get("vhost");
-        connectionFactory.setVirtualHost((String)vhost);
-        connectionFactory.setPassword(accessToken.getTokenValue());
-        connectionFactory.setUsername("");
-        connectionFactory.setConnectionNameStrategy(factory -> "client-credentials-spike");
-        return connectionFactory;
     }
 
     private Map<String, ?> parseToken(String base64Token) throws IOException {
