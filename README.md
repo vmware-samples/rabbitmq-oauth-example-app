@@ -71,7 +71,7 @@ To assign an indentity to the example application using the Tanzu Single Sign-On
     }
     ```
     where SPACE-GUID was recorded above.
-1. Edit the `application.yml` to update the `p-rabbitmq_SPACE-GUID` reference with the value recorded above.
+1. Edit `src/main/resources/application.yml` to update the `p-rabbitmq_SPACE-GUID` references with the value of SPACE-GUID recorded above.
 1. Run `./deploy.sh` to build and deploy the application and bind to the Tanzu Single Sign-On service instance and the Tanzu RabbitMQ [VMs] service instance.
 
 ### Grant Authorities to the App

@@ -27,7 +27,7 @@ spring:
         registration:
           sso:
             authorization-grant-type: client_credentials
-            scope: uaa.resource,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.read:*/*,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.write:*/*,p-rabbitmq_17094ce5-a857-422f-896f-8c567a673269.configure:*/*
+            scope: uaa.resource,p-rabbitmq_SPACE-GUID.read:*/*,p-rabbitmq_SPACE-GUID.write:*/*,p-rabbitmq_SPACE-GUID.configure:*/*
 
 # This disables automatic creation of spring.rabbitmq.* properties by the AmqpCfEnvProcessor for instance `rabbit` which are not needed to configure OAuth connection
 cfenv:
