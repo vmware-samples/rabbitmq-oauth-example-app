@@ -1,18 +1,19 @@
 # RabbitMQ OAuth Example App
-This is an example app which uses OAuth 2.0 to bind to a Tanzu RabbitMQ [VMs] On-Demand service instance.
+This is an example app which uses OAuth 2.0 to bind to a VMware Tanzu® RabbitMQ™ for VMs
+On-Demand service instance.
 
 ## Prerequisites
-    * Tanzu Application Service for VMs
-    * Tanzu Single Sign-On Service tile installed with access to the system plan enabled for an org and single service instance named `identity` within that org.
-    * Tanzu RabbitMQ [VMs] tile with an On-Demand service snstance created in the same space, called `rabbit`.
+    * VMware Tanzu® Application Service for VMs
+    * VMware Tanzu® Single Sign-On Service tile installed with access to the system plan enabled for an org and single service instance named `identity` within that org.
+    * Tanzu RabbitMQ tile with an On-Demand service instance created in the same space, called `rabbit`.
 
 ## Overview
-Apps authenticate with RabbitMQ using the OAuth2 client flow as follows:
+Apps authenticate with Tanzu RabbitMQ using the OAuth2 client flow as follows:
 1. The app queries UAA for a JWT token with relevant scopes, using the client credentials granted through binding with the Single Sign-On instance.
 1. The app then uses this JWT token, in place of a password, to authenticate with the RabbitMQ service instance.
 
 ### Create UAA Groups for a Space
-You must create UAA groups for the space in Tanzu Application Service that contains the RabbitMQ service instance. These groups correspond to RabbitMQ resources, and can be granted as authorities to clients which interact with RabbitMQ.
+You must create UAA groups for the space in Tanzu Application Service that contains the Tanzu RabbitMQ service instance. These groups correspond to RabbitMQ resources, and can be granted as authorities to clients which interact with RabbitMQ.
 
 To create a UAA group for a space:
 1. Display the space GUID by running:
@@ -43,15 +44,15 @@ To create a UAA group for a space:
     where SPACE-GUID was recorded in step 2 above.
 
 ### Assign an Identity to the App
-You must associate any applications needing to interact with a RabbitMQ instance with a UAA client. You must grant this client appropriate authorities corresponding to the RabbitMQ resources it will interact with.
+You must associate any applications needing to interact with a Tanzu RabbitMQ instance with a UAA client. You must grant this client appropriate authorities corresponding to the Tanzu RabbitMQ resources it will interact with.
 
 To assign an indentity to the example application using the Tanzu Single Sign-On Service tile:
-1. Enable the UAA/System plan for the org containing the Tanzu RabbitMQ [VMs] service instance by running the following CF CLI command:
+1. Enable the UAA/System plan for the org containing the Tanzu RabbitMQ service instance by running the following CF CLI command:
     ```
     cf enable-service-access p-identity -p uaa -o ORG-NAME
     ```
-    where ORG-NAME is the name of the cf org with the Tanzu RabbitMQ[VMs] service instance.
-1. Target the space containing the Tanzu RabbitMQ [VMs] service instance and create a Single Sign-On service instance with the following CF CLI command:
+    where ORG-NAME is the name of the cf org with the Tanzu RabbitMQ service instance.
+1. Target the space containing the Tanzu RabbitMQ service instance and create a Single Sign-On service instance with the following CF CLI command:
     ```
     cf create-service p-identity uaa instance
     ```
@@ -72,7 +73,7 @@ To assign an indentity to the example application using the Tanzu Single Sign-On
     ```
     where SPACE-GUID was recorded above.
 1. Edit `src/main/resources/application.yml` to update the `p-rabbitmq_SPACE-GUID` references with the value of SPACE-GUID recorded above.
-1. Run `./deploy.sh` to build and deploy the application and bind to the Tanzu Single Sign-On service instance and the Tanzu RabbitMQ [VMs] service instance.
+1. Run `./deploy.sh` to build and deploy the application and bind to the Tanzu Single Sign-On service instance and the Tanzu RabbitMQ service instance.
 
 ### Grant Authorities to the App
 1. Determine the neame of the UAA client associated with the application. To do this, look up the application in the Tanzu Single Sign-On service instance dashboard, or run the following UAA CLI command:
