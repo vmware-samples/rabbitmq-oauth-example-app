@@ -3,9 +3,9 @@ This is an example app which uses OAuth 2.0 to bind to a VMware Tanzu® RabbitMQ
 On-Demand service instance.
 
 ## Prerequisites
-    * VMware Tanzu® Application Service for VMs
-    * VMware Tanzu® Single Sign-On Service tile installed with access to the system plan enabled for an org and single service instance named `identity` within that org.
-    * Tanzu RabbitMQ tile with an On-Demand service instance created in the same space, called `rabbit`.
+* VMware Tanzu® Application Service for VMs
+* VMware Tanzu® Single Sign-On Service tile installed with access to the system plan enabled for an org and single service instance named `identity` within that org.
+* Tanzu RabbitMQ tile with an On-Demand service instance created in the same space, called `rabbit`.
 
 ## Overview
 Apps authenticate with Tanzu RabbitMQ using the OAuth2 client flow as follows:
