@@ -1,4 +1,4 @@
-# SSO RabbitMQ example
+# RabbitMQ OAuth Example App
 This is an example app which uses OAuth 2.0 to bind to a Tanzu RabbitMQ [VMs] On-Demand service instance.
 
 ## Prerequisites
