@@ -1,6 +1,8 @@
 REM RabbitMQ OAuth Example App
 REM Copyright 2020 VMware, Inc.
 
+REM SPDX-License-Identifier: Apache-2.0
+
 REM This product is licensed to you under the Apache 2.0 license
 REM (the "License").  You may not use this product except in compliance
 REM with the Apache 2.0 License.
