@@ -1,3 +1,15 @@
+REM RabbitMQ OAuth Example App
+REM Copyright 2020 VMware, Inc.
+
+REM This product is licensed to you under the Apache 2.0 license
+REM (the "License").  You may not use this product except in compliance
+REM with the Apache 2.0 License.
+
+REM This product may include a number of subcomponents with separate
+REM copyright notices and license terms. Your use of these subcomponents
+REM is subject to the terms and conditions of the subcomponent's license,
+REM as noted in the LICENSE file.
+
 @if "%DEBUG%" == "" @echo off
 @rem ##########################################################################
 @rem
