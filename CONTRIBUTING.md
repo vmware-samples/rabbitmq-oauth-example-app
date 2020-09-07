@@ -28,7 +28,7 @@ git push origin my-new-feature
 When your branch gets out of sync with the vmware-samples/main branch, use the following to update:
 
 ``` shell
-git checkout my-new-feature
+git switch my-new-feature
 git fetch -a
 git pull --rebase origin main
 git push --force-with-lease origin my-new-feature
