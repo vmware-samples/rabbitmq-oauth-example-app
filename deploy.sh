@@ -15,7 +15,7 @@
 # as noted in the LICENSE file.
 
 
-APP_NAME=client-credentials-sample
+APP_NAME=sso-example
 
 ./gradlew build && cf push --no-start
 cf bind-service $APP_NAME identity -c binding.json
