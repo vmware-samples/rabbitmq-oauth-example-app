@@ -83,7 +83,7 @@ To assign an indentity to the example application using the Tanzu Single Sign-On
 ### Grant Authorities to the App
 1. Determine the neame of the UAA client associated with the application. To do this, look up the application in the Tanzu Single Sign-On service instance dashboard, or run the following UAA CLI command:
     ```
-    uaac clients | grep -B 10 "name: rabbitmq-oauth-example-app"
+    uaac clients | grep -B 10 "name: sso-example"
     ```
 1. From the output of the above command, record the CLIENT-NAME.
 1. Verify this is the correct UAA client by examining the output of the command:
