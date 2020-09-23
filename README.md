@@ -85,17 +85,17 @@ To assign an indentity to the example application using the Tanzu Single Sign-On
     ```
     uaac clients | grep -B 10 "name: sso-example"
     ```
-1. From the output of the above command, record the CLIENT-NAME.
+1. From the output of the above command, record the CLIENT-ID.
 1. Verify this is the correct UAA client by examining the output of the command:
     ```
-    uaac client get CLIENT-NAME
+    uaac client get CLIENT-ID
     ```
 1. Grant the UAA client the relevant authorities using the UAA CLI by running:
     ```
-    uaac client update CLIENT-NAME \
+    uaac client update CLIENT-ID \
         --authorities 'uaa.resource openid roles user_attributes p-rabbitmq_SPACE-GUID.read:*/* p-rabbitmq_SPACE-GUID.write:*/* p-rabbitmq_SPACE-GUID.configure:*/*'
     ```
-    where CLIENT-NAME and SPACE-GUID were recorded above.
+    where CLIENT-ID and SPACE-GUID were recorded above.
 
 ### Visit the web interface
 Visit the web interface of the app and verify that a token has been granted and a message has been sent.
