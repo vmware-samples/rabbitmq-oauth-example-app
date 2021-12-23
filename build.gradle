@@ -13,7 +13,7 @@
  */
 
 plugins {
-	id 'org.springframework.boot' version '2.6.1'
+	id 'org.springframework.boot' version '2.6.2'
 	id 'java'
 }
 
