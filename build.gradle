@@ -25,7 +25,7 @@ sourceCompatibility = '1.8'
 ext {
 	springVersion = '2.7.14'
 	springSecurityVersion = '5.8.5'
-	cfEnvSsoVersion = '2.4.2'
+	cfEnvSsoVersion = '3.0.0'
 }
 
 repositories {
