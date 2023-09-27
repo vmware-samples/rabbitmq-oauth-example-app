@@ -42,5 +42,5 @@ dependencies {
 	implementation "org.springframework.security:spring-security-oauth2-jose:$springSecurityVersion"
 	implementation "org.springframework.security:spring-security-config:$springSecurityVersion"
 	implementation "io.pivotal.cfenv:java-cfenv-boot-pivotal-sso:$cfEnvSsoVersion"
-	implementation "com.rabbitmq:amqp-client:5.18.0"
+	implementation "com.rabbitmq:amqp-client:5.19.0"
 }
